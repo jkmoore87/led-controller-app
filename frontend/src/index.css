@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global dark background */
+body {
+  @apply bg-black text-white;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Neon blue text/glow */
+.neon-blue {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+/* Inputs & buttons glow */
+.glow {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+input, select {
+  background-color: #000;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  border-radius: 8px;
+  padding: 10px;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+button {
+  background-color: #000;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+button:hover {
+  background-color: #00ffff;
+  color: #000;
+  box-shadow: 0 0 20px #00ffff;
+}

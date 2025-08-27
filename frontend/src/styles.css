@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Neon glow helpers */
+.glow-text { text-shadow: 0 0 8px rgba(0,234,255,0.6); }
+.glow-ring { box-shadow: 0 0 10px rgba(124,58,237,0.5), inset 0 0 10px rgba(0,234,255,0.25); }
