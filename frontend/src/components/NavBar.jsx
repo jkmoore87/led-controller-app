@@ -1,23 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function NavBar({ user, onLogout }) {
+export default function NavBar({ currentUser, setCurrentUser }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setCurrentUser(null);
+    navigate("/login");
+  };
+
   return (
-    <nav className="flex items-center justify-between p-4 bg-black border-b border-cyan-500/30 glow">
-      <h1 className="text-2xl font-bold neon-blue">LED Controller</h1>
-      <div className="flex space-x-6">
-        <Link className="neon-blue hover:glow" to="/">Home</Link>
-        {user && (
+    <nav className="flex justify-between items-center bg-gray-800 p-4 text-white">
+      {/* Left side: brand/title */}
+      <div className="font-bold text-lg">
+        LED Controller Application
+      </div>
+
+      {/* Right side: links */}
+      <div className="flex space-x-4">
+        <Link to="/">Home</Link>
+        <Link to="/forum">Forum</Link>
+        <Link to="/led-controller">LED Controller</Link>
+        <Link to="/resources">Resources</Link>
+
+        {!currentUser && (
           <>
-            <Link className="neon-blue hover:glow" to="/controller">Controller</Link>
-            <Link className="neon-blue hover:glow" to="/forum">Forum</Link>
-            <Link className="neon-blue hover:glow" to="/resources">Resources</Link>
-            <button className="neon-blue glow" onClick={onLogout}>Logout</button>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
           </>
         )}
-        {!user && (
+
+        {currentUser && (
           <>
-            <Link className="neon-blue hover:glow" to="/login">Login</Link>
-            <Link className="neon-blue hover:glow" to="/register">Register</Link>
+            <span>✨Welcome, {currentUser.firstName || currentUser.name}!</span>
+            <Link to="#" onClick={handleLogout}>
+              Logout
+            </Link>
           </>
         )}
       </div>

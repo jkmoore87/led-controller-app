@@ -1,64 +1,31 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar.jsx";
-import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import LEDController from "./pages/LEDController.jsx";
-import Resource from "./pages/Resource.jsx";
-import Forum from "./pages/Forum.jsx";
+import NavBar from "./components/NavBar";
+import Forum from "./pages/Forum";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import LEDController from "./pages/LEDController";
+import Resource from "./pages/Resource";
 
-function ProtectedRoute({ user, children }) {
-  if (!user) return <Login setUser={() => {}} />;
-  return children;
-}
-
-export default function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (stored) setUser(JSON.parse(stored));
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-  };
+function App() {
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
   return (
     <Router>
-      <NavBar user={user} onLogout={handleLogout} />
+      <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/register" element={<Register setUser={setUser} />} />
-
-        <Route
-          path="/controller"
-          element={
-            <ProtectedRoute user={user}>
-              <LEDController />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/resources"
-          element={
-            <ProtectedRoute user={user}>
-              <Resource />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/forum"
-          element={
-            <ProtectedRoute user={user}>
-              <Forum />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
+        <Route path="/register" element={<Register setCurrentUser={setCurrentUser} />} />
+        <Route path="/forum" element={<Forum currentUser={currentUser} />} />
+        <Route path="/led-controller" element={<LEDController currentUser={currentUser} />} />
+        <Route path="/resources" element={<Resource />} />
       </Routes>
     </Router>
   );
 }
+
+export default App;

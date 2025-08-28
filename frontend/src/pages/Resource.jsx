@@ -1,19 +1,65 @@
 export default function Resource() {
   return (
-    <div className="min-h-screen bg-black p-8 text-white">
-      <h1 className="text-4xl font-bold neon-blue mb-6 text-center">Resources</h1>
+    <div className="min-h-screen bg-black text-white p-8">
+      <h1 className="text-4xl font-bold neon-blue mb-6 text-center">LED Setup Guide</h1>
 
-      <div className="max-w-3xl mx-auto space-y-6">
-        <div className="bg-gray-950 p-6 rounded-xl glow border border-cyan-400/50">
-          <h2 className="text-2xl neon-blue font-bold mb-2">Setup Guide</h2>
-          <p>Step-by-step instructions to configure your LEDs and connect them with this app.</p>
-          <a href="/downloads/setup.pdf" className="neon-blue hover:underline mt-2 block">Download PDF</a>
+      <div className="space-y-8 max-w-3xl mx-auto">
+
+        {/* Step-by-step instructions */}
+        <div className="p-6 bg-gray-900/50 rounded-xl glow">
+          <h2 className="text-2xl neon-blue mb-2">Step 1: Hardware Requirements</h2>
+          <ul className="list-disc list-inside space-y-1 neon-blue/80">
+            <li>ESP32 or ESP8266 microcontroller</li>
+            <li>WS2812 / Neopixel LED strip</li>
+            <li>Power supply compatible with your LEDs</li>
+            <li>USB cable to connect ESP32 to your computer</li>
+            <li>Arduino IDE or PlatformIO installed</li>
+          </ul>
         </div>
 
-        <div className="bg-gray-950 p-6 rounded-xl glow border border-cyan-400/50">
-          <h2 className="text-2xl neon-blue font-bold mb-2">Animations</h2>
-          <p>Learn how to create cool LED animations with our examples.</p>
-          <a href="/downloads/animations.zip" className="neon-blue hover:underline mt-2 block">Download ZIP</a>
+        <div className="p-6 bg-gray-900/50 rounded-xl glow">
+          <h2 className="text-2xl neon-blue mb-2">Step 2: Upload ESP32 Code</h2>
+          <p className="neon-blue/80">
+            Download the ESP32 code below and upload it using Arduino IDE. Make sure to set your Wi-Fi credentials.
+          </p>
+        </div>
+
+        <div className="p-6 bg-gray-900/50 rounded-xl glow">
+          <h2 className="text-2xl neon-blue mb-2">Step 3: Connect to the App</h2>
+          <ol className="list-decimal list-inside space-y-1 neon-blue/80">
+            <li>Start the backend server: <code>npm run dev</code> in /backend</li>
+            <li>Start the frontend: <code>npm run dev</code> in /frontend</li>
+            <li>Open LED Controller page in your browser</li>
+            <li>Pick a color, brightness, or animation and click Apply</li>
+            <li>Your LEDs should respond!</li>
+          </ol>
+        </div>
+
+        {/* Download Resources Section */}
+        <div className="p-6 bg-gray-900/50 rounded-xl glow text-center">
+          <h2 className="text-2xl neon-blue mb-4">Download Resources</h2>
+          <div className="flex flex-col space-y-4 items-center">
+            <a
+              href="/resources/ESP32_LED_Code.ino"
+              download
+              className="py-2 px-4 neon-blue glow font-bold rounded-lg hover:bg-cyan-500 hover:text-black transition"
+            >
+              Download ESP32 Code
+
+            </a>
+            <a
+              href="/resources/LED_Setup_Guide.pdf"
+              download
+              className="py-2 px-4 neon-blue glow font-bold rounded-lg hover:bg-cyan-500 hover:text-black transition"
+            >
+              Download Full Setup Guide
+            </a>
+          </div>
+        </div>
+
+        {/* Final Encouragement */}
+        <div className="p-6 bg-gray-900/50 rounded-xl glow text-center">
+          <p className="text-xl neon-blue">✨Your LEDs are ready to shine!✨</p>
         </div>
       </div>
     </div>
