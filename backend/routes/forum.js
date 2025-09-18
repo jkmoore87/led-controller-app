@@ -1,7 +1,8 @@
-import express from "express";
-import Post from "../models/Post.js";
-import { verifyToken } from "../middleware/auth.js";
+import express from "express";   // Import Express to create routes
+import Post from "../models/Post.js";   // Import the Post model to interact with the posts collection in MongoDB
+import { verifyToken } from "../middleware/auth.js";   // Import the verifyToken middleware to protect certain routes
 
+// Create a new Express router
 const router = express.Router();
 
 // GET all posts (public)
@@ -83,4 +84,5 @@ router.delete("/:id", verifyToken, async (req, res) => {
   }
 });
 
+// Export the router to use in main server file
 export default router;

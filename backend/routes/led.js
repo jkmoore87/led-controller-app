@@ -1,6 +1,8 @@
 import express from "express";   // Express framework
 import axios from "axios";   // for calling the ESP32 API
 import { authRequired } from "../middleware/auth.js";   // authentication middleware
+
+// Create a new Express router
 const router = express.Router();
 
 // In-memory LED state (for demo purposes; replace with DB in production).
@@ -13,7 +15,8 @@ router.post("/led", authRequired, async (req, res) => {
   ledState = { color, brightness, animation };
 
   try {
-// Try to call the ESP32; if unreachable, return a friendly message instead of failing completely
+
+// Try to call the ESP32; if unreachable, return a message instead of failing completely
     try {
       await axios.post(`http://${ESP32_IP}/set-led`, ledState, { timeout: 3000 });
       res.json({ message: "LED updated on ESP32!", state: ledState });
@@ -34,4 +37,5 @@ router.get("/state", authRequired, (req, res) => {
   res.json(ledState);
 });
 
+// Export the router to use in the main server file
 export default router;

@@ -1,23 +1,26 @@
-/* Remove Tailwind Directives if not using Tailwind CSS */
-/* If you are using Tailwind, ensure your build tool is configured to process these directives */
+/* Tailwind base, components, utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Global dark background and font */
+/* Global styles applied to the whole page */
 body {
-  @apply bg-black text-white;
-  font-family: 'Orbitron', sans-serif;
+  @apply bg-black text-white; /* Dark background and white text */
+  font-family: 'Orbitron', sans-serif; /* Futuristic font for neon effect */
 }
 
-/* Neon blue text/glow */
+/* Neon blue text with glow effect */
 .neon-blue {
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  color: #00ffff; /* Bright cyan text */
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Glow effect */
 }
 
-/* Pulsing glow effect for page titles */
+/* Pulsing glow effect for page titles or highlighted text */
 .pulse-glow {
   animation: pulseGlow 1.5s infinite alternate;
 }
 
+/* Define keyframes for pulsing glow animation */
 @keyframes pulseGlow {
   0% {
     text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
@@ -25,46 +28,44 @@ body {
   }
   100% {
     text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
-    color: #fffbe6;
+    color: #fffbe6; /* Lightened color at peak glow */
   }
 }
 
-/* Glow effect for buttons and inputs */
+/* Generic glow effect for buttons, inputs, or cards */
 .glow {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
 /* Inputs and selects */
 input, select {
-  background-color: #000;
-  border: 1px solid #00ffff;
-  color: #00ffff;
-  border-radius: 8px;
+  background-color: #000; /* Dark background */
+  border: 1px solid #00ffff; /* Cyan border */
+  color: #00ffff; /* Text color */
+  border-radius: 8px; /* Rounded corners */
   padding: 10px;
-  outline: none;
+  outline: none; /* Remove default outline */
 }
 
 input:focus, select:focus {
-  border-color: #00ffff;
-  box-shadow: 0 0 10px #00ffff;
+  border-color: #00ffff; /* Highlight border on focus */
+  box-shadow: 0 0 10px #00ffff; /* Glow on focus */
 }
 
 /* Buttons */
 button {
-  background-color: #000;
-  color: #00ffff;
-  border: 1px solid #00ffff;
+  background-color: #000; /* Dark background */
+  color: #00ffff; /* Cyan text */
+  border: 1px solid #00ffff; /* Cyan border */
   border-radius: 8px;
   padding: 10px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 0 10px #00ffff;
+  cursor: pointer; /* Pointer on hover */
+  transition: all 0.2s ease-in-out; /* Smooth hover effect */
+  box-shadow: 0 0 10px #00ffff; /* Default glow */
 }
 
 button:hover {
-  background-color: #00ffff;
+  background-color: #00ffff; /* Invert colors on hover */
   color: #000;
-  box-shadow: 0 0 20px #00ffff;
+  box-shadow: 0 0 20px #00ffff; /* Stronger glow on hover */
 }
-
-/* Extra classes for custom animations or highlights can go here */

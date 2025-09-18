@@ -1,15 +1,24 @@
+// Import Link component from React Router for navigation
 import { Link } from "react-router-dom";
 
+// Home page component
 export default function Home() {
   return (
+    
+// Main container with full height, centered content, and black background
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-8 text-white">
+
+      {/* Page title */}
       <h1 className="text-5xl font-extrabold neon-blue mb-6 text-center drop-shadow-[0_0_20px_#00ffff]">
-  <span className="pulse-glow">Welcome to Your LED Controller App</span>
+        <span className="pulse-glow">Welcome to Your LED Controller App</span>
       </h1>
+
+      {/* Introductory paragraph */}
       <p className="text-lg text-center mb-8 neon-blue/70 max-w-xl">
         Control your LED lights, explore community creations, and follow step-by-step guides to make your setup shine!
       </p>
 
+      {/* Login/Register buttons */}
       <div className="flex space-x-6">
         <Link
           to="/login"
@@ -25,6 +34,7 @@ export default function Home() {
         </Link>
       </div>
 
+      {/* Quick Start guide */}
       <div className="mt-12 max-w-2xl text-center neon-blue/50">
         <h2 className="text-2xl font-bold mb-2 neon-blue">Quick Start</h2>
         <ol className="list-decimal list-inside space-y-2">

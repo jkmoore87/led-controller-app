@@ -39,4 +39,5 @@ const presetSchema = new mongoose.Schema(
 // Create and export the Preset model.
 const Preset = mongoose.model('Preset', presetSchema);
 
+// Export the Preset model for use elsewhere in the application
 export default Preset;

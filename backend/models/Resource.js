@@ -13,7 +13,8 @@ const resourceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create and export the Resource model
+// Create the Resource model from the schema
 const Resource = mongoose.model('Resource', resourceSchema);
 
+// Export the Resource model for use elsewhere in the application
 export default Resource;

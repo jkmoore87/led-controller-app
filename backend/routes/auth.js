@@ -65,6 +65,7 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ message: "Please enter all fields" });
 
   try {
+
 // Find user by email.
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
@@ -113,5 +114,5 @@ router.post('/refresh', (req, res) => {
 });
 
 
-// Export the router to be used in the main application.
+// Export the router to be used in the application.
 export default router;

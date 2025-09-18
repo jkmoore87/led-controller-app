@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create and export the User model.
+// Create the User model from the schema
 const User = mongoose.model('User', userSchema);
 
+// Export the User model for use elsewhere in the application
 export default User;

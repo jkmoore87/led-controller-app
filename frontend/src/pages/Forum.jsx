@@ -1,24 +1,34 @@
-// src/pages/Forum.jsx
+// Import React hooks for state management and lifecycle
 import { useState, useEffect } from "react";
+// Import pre-configured Axios instance for API calls
 import api from "../api";
 
 export default function Forum() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState(null);
+// -------------------- State --------------------
+  const [currentUser, setCurrentUser] = useState(null);   // Logged-in user
+  const [posts, setPosts] = useState([]);   // List of forum posts
+  const [title, setTitle] = useState("");   // New post title
+  const [content, setContent] = useState("");   // New post content
+  const [image, setImage] = useState(null);   // Optional image for new post
 
-  const [editingPostId, setEditingPostId] = useState(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editContent, setEditContent] = useState("");
+// Editing state
+  const [editingPostId, setEditingPostId] = useState(null); // Post ID being edited
+  const [editTitle, setEditTitle] = useState("");   // Edited title
+  const [editContent, setEditContent] = useState("");       // Edited content
 
+// -------------------- Effects --------------------
   useEffect(() => {
+// Load current user from localStorage on mount
     const user = JSON.parse(localStorage.getItem("user"));
     setCurrentUser(user);
+
+// Fetch all forum posts
     fetchPosts();
   }, []);
 
+// -------------------- Functions --------------------
+
+// Fetch posts from backend API
   const fetchPosts = async () => {
     try {
       const { data } = await api.get("/forum");
@@ -28,14 +38,17 @@ export default function Forum() {
     }
   };
 
+// Handle new post submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !content) return;
+
+    if (!title || !content) return;   // Require title and content
     if (!currentUser) {
       alert("You must be logged in to post.");
       return;
     }
 
+// Convert image file to base64 if provided
     let imageData = "";
     if (image) {
       imageData = await new Promise((resolve, reject) => {
@@ -47,8 +60,12 @@ export default function Forum() {
     }
 
     try {
+
+// Send new post to backend
       await api.post("/forum", { title, content, image: imageData });
-      await fetchPosts();
+      await fetchPosts();   // Refresh posts list
+
+// Clear input fields
       setTitle("");
       setContent("");
       setImage(null);
@@ -58,6 +75,7 @@ export default function Forum() {
     }
   };
 
+// Handle deleting a post
   const handleDelete = async (postId) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
@@ -68,17 +86,19 @@ export default function Forum() {
     }
   };
 
+// Start editing a post
   const handleEdit = (post) => {
     setEditingPostId(post._id);
     setEditTitle(post.title);
     setEditContent(post.content);
   };
 
+// Save updated post
   const handleUpdate = async (postId) => {
     try {
       await api.put(`/forum/${postId}`, { title: editTitle, content: editContent });
-      await fetchPosts();
-      setEditingPostId(null);
+      await fetchPosts();   // Refresh posts
+      setEditingPostId(null);   // Exit editing mode
       setEditTitle("");
       setEditContent("");
     } catch (err) {
@@ -87,20 +107,25 @@ export default function Forum() {
     }
   };
 
+// Check if current user can edit/delete the post
   const canEditOrDelete = (post) => {
-    // New posts: userId exists
+    
+// New posts: check by userId
     if (post.userId && currentUser?._id) {
       return post.userId.toString() === currentUser._id.toString();
     }
-    // Legacy posts: match by username
+    
+// Legacy posts: match by username
     if (currentUser && post.user) {
       return currentUser.name === post.user;
     }
     return false;
   };
 
+// -------------------- Render --------------------
   return (
     <div className="min-h-screen bg-black text-white p-8">
+      {/* Page title */}
       <h1 className="text-4xl neon-blue font-bold mb-6 text-center pulse-glow">Forum</h1>
 
       {/* Post Form */}
@@ -153,6 +178,7 @@ export default function Forum() {
               </span>
             </div>
 
+            {/* Edit mode */}
             {editingPostId === post._id ? (
               <div>
                 <input
@@ -182,6 +208,8 @@ export default function Forum() {
                 </div>
               </div>
             ) : (
+              
+// Display post content
               <>
                 <h2 className="neon-blue font-semibold mb-1">{post.title}</h2>
                 <p className="neon-blue/80 mb-2">{post.content}</p>
@@ -195,7 +223,7 @@ export default function Forum() {
               </>
             )}
 
-            {/* Edit/Delete buttons with fallback for old posts */}
+            {/* Edit/Delete buttons if user owns the post */}
             {canEditOrDelete(post) && (
               <div className="mt-2 flex gap-2">
                 <button
