@@ -1,11 +1,19 @@
+// Import mongoose to define the schema and model
 import mongoose from 'mongoose';
 
-const resourceSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  downloadUrl: { type: String }, // e.g., firmware zip or PDF stored statically
-  steps: [{ type: String }],     // step-by-step instructions
-  createdAt: { type: Date, default: Date.now }
-});
+// Define the Resource schema
+const resourceSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
+    downloadUrl: { type: String, trim: true },
+    tags: [{ type: String, trim: true }],
+    steps: [{ type: String, trim: true }]
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Resource', resourceSchema);
+// Create and export the Resource model
+const Resource = mongoose.model('Resource', resourceSchema);
+
+export default Resource;

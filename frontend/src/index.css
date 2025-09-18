@@ -1,8 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Remove Tailwind Directives if not using Tailwind CSS */
+/* If you are using Tailwind, ensure your build tool is configured to process these directives */
 
-/* Global dark background */
+/* Global dark background and font */
 body {
   @apply bg-black text-white;
   font-family: 'Orbitron', sans-serif;
@@ -14,11 +13,28 @@ body {
   text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
 }
 
-/* Inputs & buttons glow */
+/* Pulsing glow effect for page titles */
+.pulse-glow {
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    color: #00ffff;
+  }
+  100% {
+    text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+    color: #fffbe6;
+  }
+}
+
+/* Glow effect for buttons and inputs */
 .glow {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
+/* Inputs and selects */
 input, select {
   background-color: #000;
   border: 1px solid #00ffff;
@@ -33,6 +49,7 @@ input:focus, select:focus {
   box-shadow: 0 0 10px #00ffff;
 }
 
+/* Buttons */
 button {
   background-color: #000;
   color: #00ffff;
@@ -49,3 +66,5 @@ button:hover {
   color: #000;
   box-shadow: 0 0 20px #00ffff;
 }
+
+/* Extra classes for custom animations or highlights can go here */

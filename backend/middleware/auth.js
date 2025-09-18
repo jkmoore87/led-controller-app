@@ -1,15 +1,28 @@
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config.js';
+import jwt from "jsonwebtoken";
 
-export function authRequired(req, res, next) {
-  const header = req.headers.authorization;
-  if (!header || !header.startsWith('Bearer ')) return res.status(401).json({ message: 'Missing token' });
-  const token = header.split(' ')[1];
-  try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    req.user = { id: payload.id, name: payload.name };
-    next();
-  } catch (e) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
+// Middleware: verify JWT token and attach user info to req.user
+export const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "No token provided" });
   }
-}
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = {
+      id: decoded.id,
+      name: decoded.name,
+      firstName: decoded.firstName,
+      lastName: decoded.lastName,
+    };
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid token" });
+  }
+};
+
+// Alias for legacy or other routes that expect `authRequired`
+export const authRequired = verifyToken;

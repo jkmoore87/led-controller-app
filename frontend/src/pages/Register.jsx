@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
-export default function Register({ setUser }) {
+export default function Register({ setCurrentUser }) {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", password: "" });
   const navigate = useNavigate();
 
@@ -10,18 +11,15 @@ export default function Register({ setUser }) {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Register failed");
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
-      navigate("/controller");
+      const { data } = await api.post('/auth/register', form);
+      if (data.token) localStorage.setItem('token', data.token);
+      if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
+      if (data.user) localStorage.setItem('user', JSON.stringify(data.user));
+  if (setCurrentUser) setCurrentUser(data.user);
+  // After registering, route the user to the login page so they can sign in
+  navigate('/login');
     } catch (err) {
-      alert(err.message);
+      alert(err.response?.data?.message || err.message || 'Register failed');
     }
   };
 

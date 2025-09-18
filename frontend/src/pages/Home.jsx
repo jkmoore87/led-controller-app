@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-8 text-white">
-      <h1 className="text-5xl font-bold neon-blue mb-6 text-center drop-shadow-[0_0_20px_#00ffff]">
-        Welcome to the LED Controller App
+      <h1 className="text-5xl font-extrabold neon-blue mb-6 text-center drop-shadow-[0_0_20px_#00ffff]">
+  <span className="pulse-glow">Welcome to Your LED Controller App</span>
       </h1>
       <p className="text-lg text-center mb-8 neon-blue/70 max-w-xl">
         Control your LED lights, explore community creations, and follow step-by-step guides to make your setup shine!

@@ -9,10 +9,10 @@
 - `POST /api/auth/register` — create user
 - `POST /api/auth/login` — get JWT
 - `GET /api/health` — health check
-- `POST /api/posts` (auth, multipart) — create forum post
-- `GET /api/posts` (auth) — list posts
-- `PUT /api/posts/:id` (auth, owner) — update
-- `DELETE /api/posts/:id` (auth, owner) — delete
+- `POST /api/forum` (auth) — create forum post
+- `GET /api/forum` (public) — list posts
+- `PUT /api/forum/:id` (auth, owner) — update
+- `DELETE /api/forum/:id` (auth, owner) — delete
 - `GET /api/resources` (auth) — list resources
 - `POST /api/resources` (auth) — create resource (for demo)
 - `PUT /api/resources/:id` (auth) — update

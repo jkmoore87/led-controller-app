@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ui:test": "node test/uiTest.js"
   },
   "dependencies": {
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "jwt-decode": "^4.0.0",
+    "node-fetch": "^2.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.1"
@@ -19,8 +21,9 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.21",
+    "playwright": "^1.55.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
-    "vite": "^5.3.4"
+    "vite": "^7.1.4"
   }
 }

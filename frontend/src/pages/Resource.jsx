@@ -1,7 +1,7 @@
 export default function Resource() {
   return (
     <div className="min-h-screen bg-black text-white p-8">
-      <h1 className="text-4xl font-bold neon-blue mb-6 text-center">LED Setup Guide</h1>
+  <h1 className="text-4xl font-bold neon-blue mb-6 text-center pulse-glow">LED Setup Guide</h1>
 
       <div className="space-y-8 max-w-3xl mx-auto">
 
@@ -45,14 +45,6 @@ export default function Resource() {
               className="py-2 px-4 neon-blue glow font-bold rounded-lg hover:bg-cyan-500 hover:text-black transition"
             >
               Download ESP32 Code
-
-            </a>
-            <a
-              href="/resources/LED_Setup_Guide.pdf"
-              download
-              className="py-2 px-4 neon-blue glow font-bold rounded-lg hover:bg-cyan-500 hover:text-black transition"
-            >
-              Download Full Setup Guide
             </a>
           </div>
         </div>

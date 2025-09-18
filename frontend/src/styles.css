@@ -1,3 +1,4 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,3 +6,41 @@
 /* Neon glow helpers */
 .glow-text { text-shadow: 0 0 8px rgba(0,234,255,0.6); }
 .glow-ring { box-shadow: 0 0 10px rgba(124,58,237,0.5), inset 0 0 10px rgba(0,234,255,0.25); }
+
+/* LED preview panel */
+.led-panel { border-radius: 12px; }
+.led-strip { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.led-dot {
+	width: 28px;
+	height: 28px;
+	border-radius: 9999px;
+	background: #00303a;
+	box-shadow: 0 0 8px rgba(0,255,255,0.06), 0 2px 6px rgba(0,0,0,0.6);
+	transition: transform 160ms linear, box-shadow 160ms linear, background 160ms linear;
+}
+.led-dot:hover { transform: translateY(-4px) scale(1.05); }
+
+/* Animations */
+.blink { animation: ledBlink 1s infinite; }
+@keyframes ledBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.12; } }
+
+.pulse { animation: ledPulse 1.6s infinite ease-in-out; }
+@keyframes ledPulse { 0% { transform: scale(1); box-shadow: 0 0 6px rgba(0,255,255,0.06); } 50% { transform: scale(1.18); box-shadow: 0 0 20px rgba(0,255,255,0.35); } 100% { transform: scale(1); box-shadow: 0 0 6px rgba(0,255,255,0.06); } }
+
+/* Rainbow gradient animation for Rainbow mode */
+.rainbow {
+	background: linear-gradient(90deg, #ff004d, #ff8a00, #ffee00, #00ff6a, #00e5ff, #7a00ff);
+	background-size: 300% 300%;
+	animation: rainbowShift 3s linear infinite;
+}
+@keyframes rainbowShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+/* Neon button */
+.neon-button {
+	background: linear-gradient(180deg, rgba(0,255,255,0.06), rgba(0,255,255,0.02));
+	color: #00121a;
+	border: 1px solid rgba(0,255,255,0.18);
+	box-shadow: 0 6px 24px rgba(0,255,255,0.06), 0 0 12px rgba(0,255,255,0.12) inset;
+}
+.neon-button:hover { transform: translateY(-2px); box-shadow: 0 10px 34px rgba(0,255,255,0.18), 0 0 22px rgba(0,255,255,0.16); }
+

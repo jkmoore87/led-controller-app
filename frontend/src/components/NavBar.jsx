@@ -1,42 +1,48 @@
-import { Link, useNavigate } from "react-router-dom";
+// components/NavBar.jsx
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function NavBar({ currentUser, setCurrentUser }) {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setCurrentUser(null);
-    navigate("/login");
-  };
+export default function NavBar() {
+  const { user, logout, loggingOut } = useAuth();
 
   return (
-    <nav className="flex justify-between items-center bg-gray-800 p-4 text-white">
-      {/* Left side: brand/title */}
-      <div className="font-bold text-lg">
-        LED Controller Application
+    <nav className="bg-gray-800 text-white flex justify-between items-center px-6 py-4 shadow-md">
+      {/* Left: App Name */}
+      <div className="text-xl font-bold">
+        <Link to="/">LED Controller App</Link>
       </div>
 
-      {/* Right side: links */}
-      <div className="flex space-x-4">
-        <Link to="/">Home</Link>
-        <Link to="/forum">Forum</Link>
-        <Link to="/led-controller">LED Controller</Link>
-        <Link to="/resources">Resources</Link>
+      {/* Right: Links */}
+      <div className="flex items-center space-x-4">
+        <Link to="/" className="hover:text-gray-300">Home</Link>
+        <Link to="/resources" className="hover:text-gray-300">Resources</Link>
 
-        {!currentUser && (
+        {user && (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/forum" className="hover:text-gray-300">Forum</Link>
+            <Link to="/led-controller" className="hover:text-gray-300">LED Controller</Link>
+            <span className="ml-2 font-bold pulse-gold">
+              Welcome, {user.name || user.email}
+            </span>
           </>
         )}
 
-        {currentUser && (
-          <>
-            <span>✨Welcome, {currentUser.firstName || currentUser.name}!</span>
-            <Link to="#" onClick={handleLogout}>
-              Logout
-            </Link>
-          </>
+        {loggingOut ? (
+          <span className="animate-pulse px-4 py-2 bg-red-600 rounded">Logging out…</span>
+        ) : user ? (
+          <button
+            onClick={logout}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded transition-colors"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded transition-colors"
+          >
+            Login
+          </Link>
         )}
       </div>
     </nav>
